@@ -1,3 +1,4 @@
+// Copywright 2021 Carther Theogene carther@bu.edu
 #include "snake.h"
 
 int main () {

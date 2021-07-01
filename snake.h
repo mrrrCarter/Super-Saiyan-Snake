@@ -1,3 +1,4 @@
+// Copywright 2021 Carther Theogene carther@bu.edu
 #include <iostream>
 #include <vector>
 #include <ncurses.h>  //  API we use when working with raw terminal code. It provides functions to move the cursor, create windows, produce colors, play with mouse etc
@@ -17,7 +18,7 @@ struct snakepart
 class snakeclass
 {
 int points, delay, maxwidth, maxheight;
-char direction, partchar, screenedgechar, foo;
+char direction, partchar, screenedgechar, foo, obstacle;
 bool get;
 snakepart food;
 std::vector<snakepart> snake;

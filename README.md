@@ -6,3 +6,11 @@ Use the arrow keys to controll the snake and aim to eat the stars that appears r
 Every time 30 points is reached, the speed of the snake will increase.
 If at any points of the game the head of the snake touches the four borders of the game and itself and the obstacles, the game is over and final score is printed.
 
+# How-To-Play
+Open terminal
+-> git clone https://github.com/mrrrCarter/Super-Saiyan-Snake.git (link from green button “Code” on GitHub)
+-> cd Super-Saiyan-Snake
+-> g++ -g snake.cpp -o PlaySnake -lncurses
+-> PlaySnake
+Enjoy!
+

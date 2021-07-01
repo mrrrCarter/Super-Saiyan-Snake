@@ -34,7 +34,7 @@ snakeclass::snakeclass() {
   for(int i = 0; i < 5; i++)
     snake.push_back(snakepart(40 + i, 10));
   points = 0;
-  delay = 110000;
+  delay = 110000; //  set the speed the snake will be going at
   get = 0;
   direction = 'l';
   srand(time(NULL));
@@ -61,12 +61,12 @@ snakeclass::snakeclass() {
   }
   //draw the snake
   for(int i = 0; i < snake.size(); i++) {
-    move(snake[i].y, snake[i].x);
+    move(snake[i].y, snake[i].x); //  ncurses to place the snake at the initial pos
     addch(partchar);
   }
-  move(maxheight - 1, 0);
+  move(maxheight - 1, 0); //  where to print the points ( bottom left)
   printw("%d", points);
-  move(food.y, food.x);
+  move(food.y, food.x); // move the food(l69) at random location(l70) then refresh(l71)
   addch(foo);
   refresh();
 }
@@ -77,14 +77,14 @@ snakeclass::~snakeclass() {
   endwin();
 }
 
-void snakeclass::addfood() {
+void snakeclass::addfood() {  //  place the food at random location
   while(1) {
     int tmpx = rand() % maxwidth + 1;
     int tmpy = rand() % maxheight + 1;
     for(int i = 0; i < snake.size(); i++)
-      if(snake[i].x == tmpx && snake[i].y == tmpy)
+      if(snake[i].x == tmpx && snake[i].y == tmpy)  //  Make sure the food is not being place where the snake is
         continue;
-    if(tmpx >= maxwidth - 2 || tmpy >= maxheight - 3)
+    if(tmpx >= maxwidth - 2 || tmpy >= maxheight - 3) //  make sure food is place within our board
       continue;
     food.x = tmpx;
     food.y = tmpy;
@@ -95,11 +95,11 @@ void snakeclass::addfood() {
   refresh();
 }
 
-bool snakeclass::collision() {
-  if(snake[0].x == 0 || snake[0].x == maxwidth - 1 || snake[0].y == 0 || snake[0].y == maxheight - 2)
+bool snakeclass::collision() { // Determine what happens during any type of collision
+  if(snake[0].x == 0 || snake[0].x == maxwidth - 1 || snake[0].y == 0 || snake[0].y == maxheight - 2) //  if the head of the snake touches any boundaries within the board, YES
     return true;
-  for(int i = 2; i < snake.size(); i++) {
-    if(snake[0].x == snake[i].x && snake[0].y == snake[i].y)
+  for(int i = 2; i < snake.size(); i++) { //  go through the actual snake
+    if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) //  make sure it doesnt touch on itself
       return true;
   }
   //collision with the food
@@ -148,14 +148,14 @@ void snakeclass::movesnake() {
     break;
   }
   //if there wasn't a collision with food
-  if(!get) {
+  if(!get) { //  this is how we make the snake move, the idea is to keep removing the last element in the vector, effectively reducing the container size by one.  prepend a head and erase a tail segment. 
     move(snake[snake.size() - 1].y, snake[snake.size() - 1].x);
     printw(" ");
     refresh();
     snake.pop_back();
   }
-  if(direction == 'l') {
-    snake.insert(snake.begin(), snakepart(snake[0].x - 1, snake[0].y));
+  if(direction == 'l') { //  if we go left then we restart the processes left
+    snake.insert(snake.begin(), snakepart(snake[0].x - 1, snake[0].y)); //possible overload might be found doing this expesive operation of inserting a copy of the given value before the specified location. Might be looking at std::list if we want to do this operation a lot.
   } else if(direction == 'r') {
     snake.insert(snake.begin(), snakepart(snake[0].x + 1, snake[0].y));
 
@@ -169,7 +169,7 @@ void snakeclass::movesnake() {
   refresh();
 }
 
-void snakeclass::start() {
+void snakeclass::start() { //  this is where we call the movesnake function in case of no collision
   while(1) {
     if(collision()) {
       move((maxheight / 2) - 4, (maxwidth / 2)-15);

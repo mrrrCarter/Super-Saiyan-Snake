@@ -1,6 +1,12 @@
 #include "snake.h"
 #include <unistd.h>
 using namespace std;
+
+/*
+TODO: 
+Main Menu: Start, Record
+
+*/
 snakepart::snakepart(int col,int row)
 {
     x=col;
@@ -146,6 +152,9 @@ void snakeclass::movesnake()
             break;
         case KEY_BACKSPACE:
             direction='q';
+            break;
+            case (' '): //Pause with the backspace
+            getchar();
             break;
     }
     //if there wasn't a collision with food
